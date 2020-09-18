@@ -1,6 +1,17 @@
 from fastai.vision.all import *
 from fastai.vision.widgets import *
 
+def get_x(r):
+    return path / 'all' / r['fname']
+    
+def get_y(r):
+    return r['label'].split(' ')
+
+def splitter(df):
+    train = df.index[~df['is_valid']].tolist()
+    valid = df.index[df['is_valid']].tolist()
+    return train,valid
+
 path = Path()
 learn_inf = load_learner(path/'flowers.pkl', cpu=True)
 
